@@ -1,0 +1,30 @@
+﻿<Window x:Class="Reporter.AlgorithmReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reporter"
+        mc:Ignorable="d"
+        Title="AlgorithmReport" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <DataGrid  ItemsSource="{Binding Algorithms}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Start time" Binding="{Binding StartTime}" />
+                    <DataGridTextColumn Header="End time" Binding="{Binding EndTime}" />
+                    <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"/>
+                    <DataGridTextColumn Header="Duration (secs)" Binding="{Binding DurationInSeconds}" />
+                    <DataGridTextColumn Header="Duration (days)" Binding="{Binding DurationInDays}" />
+                    <DataGridTextColumn Header="PLC passive flag" Binding="{Binding IsPlcPassive}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

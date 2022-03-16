@@ -1,0 +1,59 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="Reporter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Reporter"
+        mc:Ignorable="d"
+        Title="Отчеты по защитам" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Временной интервал" Grid.Row="0" Margin="3">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Label Content="Дата начала: " />
+                <xctk:DateTimePicker x:Name="startTimePicker" Value="{Binding SelectedStartTime}" Format="UniversalSortableDateTime" />
+                <Label Content="Дата окончания: " />
+                <xctk:DateTimePicker x:Name="endTimePicker" Value="{Binding SelectedEndTime}" Format="UniversalSortableDateTime" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Управление" Grid.Row="1" Margin="3">
+            <StackPanel>
+                <Button Content="Работа с отчетами (маскирование, ТОР, защиты)" Command="{Binding WorkWithReportsCommand}" Margin="3" />
+                <Button Content="Сформировать отчет по алгоритмам (Cтоп ТУ) (ВСТО)" Command="{Binding ShowAlgorithmsReportCommand}" Margin="3" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Настройки подключения" Grid.Row="2" Margin="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Content="DA connection:" Grid.Column="0" Grid.Row="0" Margin="3" />
+                <Label Content="HDA connection:" Grid.Column="0" Grid.Row="1" Margin="3" />
+
+                <TextBox Text="{Binding DA_IpAddress}" Grid.Column="1" Grid.Row="0" Width="200" Margin="3" VerticalContentAlignment="Center" />
+                <TextBox Text="{Binding DA_ServerName}" Grid.Column="2" Grid.Row="0" Width="200" Margin="3" VerticalContentAlignment="Center" />
+
+                <TextBox Text="{Binding HDA_IpAddress}" Grid.Column="1" Grid.Row="1" Width="200" Margin="3" VerticalContentAlignment="Center" />
+                <TextBox Text="{Binding HDA_ServerName}" Grid.Column="2" Grid.Row="1" Width="200" Margin="3" VerticalContentAlignment="Center" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

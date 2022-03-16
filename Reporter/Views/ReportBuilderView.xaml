@@ -1,0 +1,60 @@
+﻿<Window x:Class="Reporter.ReportBuilderView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reporter"
+        mc:Ignorable="d"
+        Title="Работа с отчетами" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="100" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Управление">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="3">
+                <Button Content="Обновить список отчетов" Command="{Binding GetReportConfigurationsCommand}" Margin="3"/>
+                <Button Content="Сформировать выбранные отчеты" Command="{Binding MakeReportsCommand}" Margin="3" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Доступные отчеты" Grid.Row="1" Margin="3">
+            <DataGrid Name="availableReports" ItemsSource="{Binding ReportsConfigurations}"  CanUserAddRows="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Name}" Header="Имя отчета" />
+                    <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding IsNeed, UpdateSourceTrigger=PropertyChanged}" Header="Формировать?" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Header="Текущий прогресс" Grid.Row="2" Margin="3">
+            <ProgressBar Value="{Binding ProgressValue}" IsIndeterminate="False" Maximum="100" Minimum="0" Height="30" Margin="3" Grid.Row="3" />
+        </GroupBox>
+
+
+
+        <GroupBox Header="Состояние подключения" Grid.Row="3" Margin="3">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="DA:" Margin="1"/>
+                    <Ellipse Height="16" Width="16" Fill="{Binding DaConnectionStatus, Converter={local:BoolToBrushConverter}}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="HDA:" Margin="1"/>
+                    <Ellipse Height="16" Width="16" Fill="{Binding HdaConnectionStatus, Converter={local:BoolToBrushConverter}}" />
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <StatusBar Grid.Row="4" Margin="3" Background="AliceBlue">
+            <TextBlock Text="{Binding State}" />
+        </StatusBar>
+    </Grid>
+</Window>
